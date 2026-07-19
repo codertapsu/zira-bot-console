@@ -1,5 +1,12 @@
 {
   "projects": {
-    "default": "zira-bot-console"
+    "default": "zira-7439c"
+  },
+  "targets": {
+    "zira-7439c": {
+      "hosting": {
+        "console": ["zira-7439c-3425d"]
+      }
+    }
   }
 }

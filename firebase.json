@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "console",
     "public": "dist/zira-bot-console/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [{ "source": "**", "destination": "/index.html" }],
