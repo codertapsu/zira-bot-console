@@ -51,7 +51,7 @@ npm run build      # → dist/zira-bot-console/browser
 
 Firebase project: **`zira-7439c`** (shared with `zira-landing`; set in
 `.firebaserc`). The console deploys to the additional hosting site
-`zira-bot-console-7439c` via the `console` deploy target — the project's
+`zira-7439c-3425d` via the `console` deploy target — the project's
 default site (`zira-7439c.web.app`) belongs to the landing page.
 Requires the Firebase CLI logged in (`firebase login`).
 
@@ -59,7 +59,7 @@ One-time setup (per machine / after the site is first created):
 
 ```bash
 # Create the additional hosting site once (skip if it already exists):
-firebase hosting:sites:create zira-bot-console-7439c
+firebase hosting:sites:create zira-7439c-3425d
 # If that site ID is taken globally, pick another and update .firebaserc.
 ```
 
@@ -70,7 +70,7 @@ npm run build
 firebase deploy --only hosting:console
 ```
 
-The live URL will be `https://zira-bot-console-7439c.web.app`.
+The live URL will be `https://zira-7439c-3425d.web.app`.
 
 `firebase.json` serves `dist/zira-bot-console/browser`, rewrites all routes to
 `index.html` (SPA), and sends security headers incl. a Content-Security-Policy
