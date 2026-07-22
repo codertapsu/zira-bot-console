@@ -20,16 +20,23 @@ const KB_EXAMPLE = `{
     <div class="card">
       <h2>Compose message</h2>
       <p class="hint">
-        Send a test or promotional message to any chat_id. HTML parse mode.
-        Attach a photo to send a rich card (<code>sendPhoto</code> with caption);
-        otherwise plain <code>sendMessage</code>. Silent = no sound/vibration.
+        Send a test or promotional message to any chat_id. HTML parse mode. Attach a photo to send a
+        rich card (<code>sendPhoto</code> with caption); otherwise plain <code>sendMessage</code>.
+        Silent = no sound/vibration.
       </p>
 
       <label class="first">chat_id</label>
       <input [(ngModel)]="chatId" placeholder="123456789 or -1001234567890" class="mono" />
 
-      <label>Text / caption <span class="sub">(HTML: &lt;b&gt; &lt;i&gt; &lt;a href&gt; &lt;code&gt;)</span></label>
-      <textarea rows="5" [(ngModel)]="text" placeholder="<b>Zira</b> vừa có tính năng mới! <a href='https://zira.top'>Xem ngay</a>"></textarea>
+      <label
+        >Text / caption
+        <span class="sub">(HTML: &lt;b&gt; &lt;i&gt; &lt;a href&gt; &lt;code&gt;)</span></label
+      >
+      <textarea
+        rows="5"
+        [(ngModel)]="text"
+        placeholder="<b>Zira</b> vừa có tính năng mới! <a href='https://zira.top'>Xem ngay</a>"
+      ></textarea>
 
       <div class="row">
         <div class="grow">
@@ -48,7 +55,12 @@ const KB_EXAMPLE = `{
         </div>
       </div>
 
-      <label>Photo <span class="sub">(optional — sends as a card with the text as caption; caption max 1024)</span></label>
+      <label
+        >Photo
+        <span class="sub"
+          >(optional — sends as a card with the text as caption; caption max 1024)</span
+        ></label
+      >
       <input type="file" accept="image/*" (change)="pickPhoto($event)" />
 
       <label>Inline keyboard <span class="sub">(optional reply_markup JSON)</span></label>

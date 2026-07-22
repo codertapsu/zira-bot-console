@@ -17,9 +17,9 @@ const EXAMPLE = `[
     <div class="card">
       <h2>Command menu</h2>
       <p class="hint">
-        Manage the slash-command list per <b>scope</b> × language. Tip: put
-        personal commands under <code>all_private_chats</code> and group ones
-        under <code>all_group_chats</code>. Narrower scopes override wider ones.
+        Manage the slash-command list per <b>scope</b> × language. Tip: put personal commands under
+        <code>all_private_chats</code> and group ones under <code>all_group_chats</code>. Narrower
+        scopes override wider ones.
       </p>
 
       <div class="row">
@@ -56,7 +56,9 @@ const EXAMPLE = `[
       <div class="row" style="margin-top:10px">
         <button (click)="get()" [disabled]="slot.loading()">Get</button>
         <button class="primary" (click)="set()" [disabled]="slot.loading()">Set commands</button>
-        <button class="danger" (click)="del()" [disabled]="slot.loading()">Delete (this scope)</button>
+        <button class="danger" (click)="del()" [disabled]="slot.loading()">
+          Delete (this scope)
+        </button>
       </div>
       @if (parseError()) {
         <div class="warnbox" style="margin-top:10px">Invalid JSON: {{ parseError() }}</div>

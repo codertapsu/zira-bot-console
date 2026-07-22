@@ -61,7 +61,7 @@ Single Angular application, no monorepo, no `projects/` folder. Total source is 
 
 ## Angular conventions actually used here
 
-Angular **22** with TypeScript **~6.0.2** (`package.json`). Verify the version before applying
+Angular **22** with TypeScript **6.0.3** (exact pins, `package.json`). Verify the version before applying
 version-specific guidance.
 
 - **Zoneless.** `zone.js` is not a dependency and `angular.json` has no `polyfills` entry. Rendering is driven purely by signal reads. Never add `zone.js`, `provideZoneChangeDetection`, or `NgZone`.
@@ -78,7 +78,7 @@ version-specific guidance.
 ## Code style rules
 
 - Prettier config: `printWidth: 100`, `singleQuote: true`, `parser: angular` for `*.html` (`.prettierrc`). Indent 2 spaces, final newline (`.editorconfig`).
-- **The repo is not currently Prettier-clean** — `npx prettier --check .` reports 19 files. Do **not** run a repo-wide `npx prettier --write .` as part of a feature change; it produces a huge unrelated diff. Match the surrounding hand-written formatting instead.
+- **The repo is Prettier-clean** (formatted repo-wide during the 2026-07 dependency upgrade; `.prettierignore` covers `dist/` and the lockfile). Keep it clean: run `npx prettier --check .` before committing, and `--write` only the files you touched.
 - Never use single-line control statements without braces. Always brace `if`, `else`, `for`, `while`, `do` — even for one statement.
 
 ```ts
@@ -153,7 +153,7 @@ Do **not** rely on:
 
 ## Security
 
-- **A bot token is full control of the bot.** There is no login, no roles, and no server-side check — the token *is* the credential.
+- **A bot token is full control of the bot.** There is no login, no roles, and no server-side check — the token _is_ the credential.
 - Never commit a bot token, and never hard-code one as a default or a placeholder that looks real. The only token in the source is the `placeholder="8676254725:AAF…"` hint in `src/app/app.ts`.
 - Never commit Firebase service-account keys, CI tokens, or a `.firebaserc` pointing at someone's personal project. `/.firebase/` is gitignored — keep it that way.
 - Tokens live in memory plus `localStorage` (`zbc.token`, "remember on this device") or `sessionStorage` (`zbc.token.session`). Do not add a third persistence location, do not log the token, and use `TelegramApiService.masked` when a token must be displayed.

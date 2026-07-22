@@ -33,20 +33,14 @@ export class TelegramApiService {
     }
     const [id, secret] = t.split(':');
     const shortId = id.length > 8 ? `${id.slice(0, 4)}…${id.slice(-4)}` : id;
-    const shortSecret = secret
-      ? `${secret.slice(0, 3)}…${secret.slice(-3)}`
-      : '';
+    const shortSecret = secret ? `${secret.slice(0, 3)}…${secret.slice(-3)}` : '';
     return shortSecret ? `${shortId}:${shortSecret}` : shortId;
   });
 
   constructor() {
     // Restore a remembered token first, else a session token.
-    const remembered =
-      typeof localStorage !== 'undefined' ? localStorage.getItem(LS_TOKEN) : null;
-    const session =
-      typeof sessionStorage !== 'undefined'
-        ? sessionStorage.getItem(SS_TOKEN)
-        : null;
+    const remembered = typeof localStorage !== 'undefined' ? localStorage.getItem(LS_TOKEN) : null;
+    const session = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem(SS_TOKEN) : null;
     if (remembered) {
       this.token.set(remembered);
       this.remember.set(true);

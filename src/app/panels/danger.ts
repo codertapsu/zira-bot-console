@@ -12,9 +12,9 @@ import { mkCall, run } from './call-slot';
       <h2>Webhook ⚠ (production)</h2>
       <p class="warnbox">
         These change how Telegram delivers updates to the LIVE bot.
-        <b>setWebhook</b> / <b>deleteWebhook</b> will interrupt Zira's bot until
-        the correct webhook is restored. Zira normally registers its own webhook
-        at boot — only touch this to recover or debug.
+        <b>setWebhook</b> / <b>deleteWebhook</b> will interrupt Zira's bot until the correct webhook
+        is restored. Zira normally registers its own webhook at boot — only touch this to recover or
+        debug.
       </p>
 
       <button class="ghost" (click)="info()" [disabled]="slot.loading()" style="margin-top:12px">
@@ -22,8 +22,15 @@ import { mkCall, run } from './call-slot';
       </button>
 
       <label>Webhook URL</label>
-      <input [(ngModel)]="url" placeholder="https://zira-server.example/api/v1/telegram/webhook" class="mono" />
-      <label>Secret token <span class="sub">(X-Telegram-Bot-Api-Secret-Token — must match the server's)</span></label>
+      <input
+        [(ngModel)]="url"
+        placeholder="https://zira-server.example/api/v1/telegram/webhook"
+        class="mono"
+      />
+      <label
+        >Secret token
+        <span class="sub">(X-Telegram-Bot-Api-Secret-Token — must match the server's)</span></label
+      >
       <input [(ngModel)]="secret" placeholder="(optional but recommended)" class="mono" />
       <label>Drop pending updates</label>
       <select [(ngModel)]="drop">
@@ -36,8 +43,16 @@ import { mkCall, run } from './call-slot';
         I understand this affects the production bot — enable
       </label>
       <div class="row" style="margin-top:10px">
-        <button class="danger" (click)="setWebhook()" [disabled]="!unlock() || slot.loading() || !url().trim()">setWebhook</button>
-        <button class="danger" (click)="deleteWebhook()" [disabled]="!unlock() || slot.loading()">deleteWebhook</button>
+        <button
+          class="danger"
+          (click)="setWebhook()"
+          [disabled]="!unlock() || slot.loading() || !url().trim()"
+        >
+          setWebhook
+        </button>
+        <button class="danger" (click)="deleteWebhook()" [disabled]="!unlock() || slot.loading()">
+          deleteWebhook
+        </button>
       </div>
       <result-view [res]="slot.res()" [loading]="slot.loading()" />
     </div>

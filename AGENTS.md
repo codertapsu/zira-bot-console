@@ -34,7 +34,7 @@ Tabs: Health, Identity, Commands, Menu button, Chat tools, Compose, Webhook. Any
 
 ## Angular
 
-- Angular 22, TypeScript ~6.0.2. Inspect `package.json` before applying version-specific guidance.
+- Angular 22, TypeScript 6.0.3 (exact pins). Inspect `package.json` before applying version-specific guidance.
 - Zoneless: `zone.js` is not installed and `angular.json` has no `polyfills`. Never add `zone.js`, `provideZoneChangeDetection`, or `NgZone`.
 - Standalone only; no `NgModule` exists. Do not write `standalone: true` — it is the default and appears nowhere here.
 - Inline `template:` strings only. No component `.html` files, no `styleUrls`/`styles`; all CSS lives in `src/styles.scss`.
@@ -55,7 +55,7 @@ Tabs: Health, Identity, Commands, Menu button, Chat tools, Compose, Webhook. Any
 - Always brace `if`, `else`, `for`, `while`, `do`, even for a single statement. Write `if (!t) { return; }`, never `if (!t) return;`.
 - Prefix intentionally un-awaited async calls with `void` — e.g. `void this.loadMe();` in `src/app/app.ts`.
 - `noPropertyAccessFromIndexSignature` is on: use `params['secret_token'] = …`, not `params.secret_token = …`, or the build fails with TS4111.
-- Prettier is configured (`printWidth: 100`, `singleQuote: true`) but the repo is **not** Prettier-clean. Do not run a repo-wide `npx prettier --write .` during a feature change; match the surrounding formatting.
+- Prettier is configured (`printWidth: 100`, `singleQuote: true`) and the repo is Prettier-clean (formatted repo-wide during the 2026-07 dependency upgrade). Run `npx prettier --check .` before committing; `--write` only files you touched.
 
 ## Verification
 

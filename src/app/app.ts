@@ -19,14 +19,7 @@ interface BotUser {
   has_main_web_app?: boolean;
 }
 
-type Tab =
-  | 'health'
-  | 'identity'
-  | 'commands'
-  | 'menu'
-  | 'chat'
-  | 'compose'
-  | 'danger';
+type Tab = 'health' | 'identity' | 'commands' | 'menu' | 'chat' | 'compose' | 'danger';
 
 interface TabDef {
   id: Tab;
@@ -54,7 +47,10 @@ interface TabDef {
         <div class="connect">
           <div class="logo-lg">Z</div>
           <h1>Zira Bot Console</h1>
-          <p>Manage your Telegram bot directly from the browser. No backend — a bot token is all you need.</p>
+          <p>
+            Manage your Telegram bot directly from the browser. No backend — a bot token is all you
+            need.
+          </p>
           <div class="card">
             <label class="first">Bot token</label>
             <input
@@ -68,7 +64,9 @@ interface TabDef {
             @if (meErr()) {
               <div class="warnbox" style="margin-top:10px">{{ meErr() }}</div>
             }
-            <label style="display:flex;align-items:center;gap:8px;margin-top:14px;font-weight:400;color:var(--text-2)">
+            <label
+              style="display:flex;align-items:center;gap:8px;margin-top:14px;font-weight:400;color:var(--text-2)"
+            >
               <input type="checkbox" [(ngModel)]="remember" />
               Remember on this device
             </label>
@@ -104,7 +102,14 @@ interface TabDef {
           <nav class="nav">
             @for (t of tabs; track t.id) {
               <button class="nav-item" [class.active]="tab() === t.id" (click)="tab.set(t.id)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path [attr.d]="t.icon" />
                 </svg>
                 <span class="lbl">{{ t.label }}</span>
@@ -112,7 +117,9 @@ interface TabDef {
             }
           </nav>
           <div class="nav-spacer"></div>
-          <div class="nav-foot">Calls go straight to api.telegram.org — nothing else leaves your browser.</div>
+          <div class="nav-foot">
+            Calls go straight to api.telegram.org — nothing else leaves your browser.
+          </div>
         </aside>
 
         <main class="main">
@@ -127,24 +134,42 @@ interface TabDef {
                   <b>Verifying…</b>
                 } @else if (me(); as m) {
                   <b>{{ m.first_name }}</b>
-                  @if (m.username) { <span>&#64;{{ m.username }}</span> }
+                  @if (m.username) {
+                    <span>&#64;{{ m.username }}</span>
+                  }
                 } @else {
                   <b>Unknown bot</b><span>tap ✕ to reconnect</span>
                 }
               </div>
-              <button class="ghost x sm" (click)="clear()" title="Disconnect / change token">✕</button>
+              <button class="ghost x sm" (click)="clear()" title="Disconnect / change token">
+                ✕
+              </button>
             </div>
           </header>
 
           <div class="content panel-enter">
             @switch (tab()) {
-              @case ('health') { <panel-health /> }
-              @case ('identity') { <panel-identity /> }
-              @case ('commands') { <panel-commands /> }
-              @case ('menu') { <panel-menu-button /> }
-              @case ('chat') { <panel-chat-tools /> }
-              @case ('compose') { <panel-compose /> }
-              @case ('danger') { <panel-danger /> }
+              @case ('health') {
+                <panel-health />
+              }
+              @case ('identity') {
+                <panel-identity />
+              }
+              @case ('commands') {
+                <panel-commands />
+              }
+              @case ('menu') {
+                <panel-menu-button />
+              }
+              @case ('chat') {
+                <panel-chat-tools />
+              }
+              @case ('compose') {
+                <panel-compose />
+              }
+              @case ('danger') {
+                <panel-danger />
+              }
             }
           </div>
         </main>
@@ -162,18 +187,46 @@ export class App {
   readonly tab = signal<Tab>('health');
 
   readonly tabs: TabDef[] = [
-    { id: 'health', label: 'Health', desc: 'Token + webhook diagnostics', icon: 'M22 12h-4l-3 9L9 3l-3 9H2' },
-    { id: 'identity', label: 'Identity', desc: 'Name, descriptions & photo', icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM5 21a7 7 0 0 1 14 0' },
-    { id: 'commands', label: 'Commands', desc: 'Slash-command menu', icon: 'M5 17l6-5-6-5M13 19h6' },
+    {
+      id: 'health',
+      label: 'Health',
+      desc: 'Token + webhook diagnostics',
+      icon: 'M22 12h-4l-3 9L9 3l-3 9H2',
+    },
+    {
+      id: 'identity',
+      label: 'Identity',
+      desc: 'Name, descriptions & photo',
+      icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM5 21a7 7 0 0 1 14 0',
+    },
+    {
+      id: 'commands',
+      label: 'Commands',
+      desc: 'Slash-command menu',
+      icon: 'M5 17l6-5-6-5M13 19h6',
+    },
     { id: 'menu', label: 'Menu button', desc: 'Chat menu button', icon: 'M4 6h16M4 12h16M4 18h16' },
-    { id: 'chat', label: 'Chat tools', desc: 'Inspect chats · pin · leaveChat', icon: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.7A8 8 0 1 1 21 12Z' },
-    { id: 'compose', label: 'Compose', desc: 'Send a message or photo', icon: 'M22 3 11 14M22 3l-7 19-4-8-8-4 19-7Z' },
-    { id: 'danger', label: 'Webhook', desc: 'setWebhook · deleteWebhook', icon: 'M13 3 4 14h7l-1 7 9-11h-7l1-7Z' },
+    {
+      id: 'chat',
+      label: 'Chat tools',
+      desc: 'Inspect chats · pin · leaveChat',
+      icon: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.7A8 8 0 1 1 21 12Z',
+    },
+    {
+      id: 'compose',
+      label: 'Compose',
+      desc: 'Send a message or photo',
+      icon: 'M22 3 11 14M22 3l-7 19-4-8-8-4 19-7Z',
+    },
+    {
+      id: 'danger',
+      label: 'Webhook',
+      desc: 'setWebhook · deleteWebhook',
+      icon: 'M13 3 4 14h7l-1 7 9-11h-7l1-7Z',
+    },
   ];
 
-  readonly active = computed(
-    () => this.tabs.find((t) => t.id === this.tab()) ?? this.tabs[0],
-  );
+  readonly active = computed(() => this.tabs.find((t) => t.id === this.tab()) ?? this.tabs[0]);
 
   constructor() {
     if (this.api.hasToken()) {

@@ -11,8 +11,8 @@ import { mkCall, run } from './call-slot';
     <div class="card">
       <h2>Chat lookup</h2>
       <p class="hint">
-        Inspect any chat the bot can see. For a Zira project group, find its
-        chat_id in the server DB (<code>telegram_bot_project_chats.chat_id</code>).
+        Inspect any chat the bot can see. For a Zira project group, find its chat_id in the server
+        DB (<code>telegram_bot_project_chats.chat_id</code>).
       </p>
       <label class="first">chat_id</label>
       <input [(ngModel)]="chatId" placeholder="-1001234567890 or @publicname" class="mono" />
@@ -23,14 +23,18 @@ import { mkCall, run } from './call-slot';
       <label>user_id <span class="sub">(for getChatMember — blank uses no id)</span></label>
       <input [(ngModel)]="userId" placeholder="123456789" class="mono" />
       <div class="row" style="margin-top:10px">
-        <button (click)="member()" [disabled]="info.loading() || !userId().trim()">getChatMember</button>
+        <button (click)="member()" [disabled]="info.loading() || !userId().trim()">
+          getChatMember
+        </button>
       </div>
       <result-view [res]="info.res()" [loading]="info.loading()" />
     </div>
 
     <div class="card">
       <h2>Pin / unpin</h2>
-      <p class="hint">Requires the bot to be an admin with <code>can_pin_messages</code>. Uses the chat_id above.</p>
+      <p class="hint">
+        Requires the bot to be an admin with <code>can_pin_messages</code>. Uses the chat_id above.
+      </p>
       <label class="first">message_id</label>
       <input [(ngModel)]="messageId" placeholder="42" class="mono" />
       <label>Silent</label>
@@ -48,16 +52,18 @@ import { mkCall, run } from './call-slot';
     <div class="card dz">
       <h2>Leave chat ⚠</h2>
       <p class="hint">
-        The bot leaves the chat above. <b>No admin rights needed</b> — it always
-        works. For a Zira-bound project group this does NOT clean up the DB
-        binding (do that via the Zira server). Irreversible from here.
+        The bot leaves the chat above. <b>No admin rights needed</b> — it always works. For a
+        Zira-bound project group this does NOT clean up the DB binding (do that via the Zira
+        server). Irreversible from here.
       </p>
       <label class="first">
         <input type="checkbox" style="width:auto;margin-right:7px" [(ngModel)]="unlock" />
         Enable destructive action
       </label>
       <div class="row" style="margin-top:10px">
-        <button class="danger" (click)="leave()" [disabled]="!unlock() || leaveSlot.loading()">leaveChat</button>
+        <button class="danger" (click)="leave()" [disabled]="!unlock() || leaveSlot.loading()">
+          leaveChat
+        </button>
       </div>
       <result-view [res]="leaveSlot.res()" [loading]="leaveSlot.loading()" />
     </div>
@@ -84,9 +90,7 @@ export class ChatToolsPanel {
     await run(this.info, () => this.api.call('getChat', { chat_id: this.cid() }));
   }
   async count() {
-    await run(this.info, () =>
-      this.api.call('getChatMemberCount', { chat_id: this.cid() }),
-    );
+    await run(this.info, () => this.api.call('getChatMemberCount', { chat_id: this.cid() }));
   }
   async member() {
     await run(this.info, () =>
@@ -114,9 +118,7 @@ export class ChatToolsPanel {
     );
   }
   async leave() {
-    await run(this.leaveSlot, () =>
-      this.api.call('leaveChat', { chat_id: this.cid() }),
-    );
+    await run(this.leaveSlot, () => this.api.call('leaveChat', { chat_id: this.cid() }));
     this.unlock.set(false);
   }
 }

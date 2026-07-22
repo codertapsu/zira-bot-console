@@ -20,15 +20,15 @@ against the [Telegram Bot API](https://core.telegram.org/bots/api).
 
 ## What it does
 
-| Tab | Methods |
-|-----|---------|
-| Health | `getMe`, `getWebhookInfo` |
-| Identity | get/set `MyName`, `MyDescription`, `MyShortDescription` (per `language_code`); `setMyProfilePhoto` / `removeMyProfilePhoto` |
-| Commands | `getMyCommands` / `setMyCommands` / `deleteMyCommands` (per scope × language) |
-| Menu button | `getChatMenuButton` / `setChatMenuButton` (default or per-chat) |
-| Chat tools | `getChat`, `getChatMemberCount`, `getChatMember`, `pinChatMessage`, `unpinChatMessage`, **`leaveChat`** |
-| Compose | `sendMessage` / `sendPhoto` — HTML, inline keyboard, silent send |
-| Webhook | `getWebhookInfo`, `setWebhook`, `deleteWebhook` (danger zone) |
+| Tab         | Methods                                                                                                                     |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Health      | `getMe`, `getWebhookInfo`                                                                                                   |
+| Identity    | get/set `MyName`, `MyDescription`, `MyShortDescription` (per `language_code`); `setMyProfilePhoto` / `removeMyProfilePhoto` |
+| Commands    | `getMyCommands` / `setMyCommands` / `deleteMyCommands` (per scope × language)                                               |
+| Menu button | `getChatMenuButton` / `setChatMenuButton` (default or per-chat)                                                             |
+| Chat tools  | `getChat`, `getChatMemberCount`, `getChatMember`, `pinChatMessage`, `unpinChatMessage`, **`leaveChat`**                     |
+| Compose     | `sendMessage` / `sendPhoto` — HTML, inline keyboard, silent send                                                            |
+| Webhook     | `getWebhookInfo`, `setWebhook`, `deleteWebhook` (danger zone)                                                               |
 
 Bulk operations that need Zira's database (which groups belong to which project,
 promotional broadcasts, the subscription-expiry auto-leave policy) live in the

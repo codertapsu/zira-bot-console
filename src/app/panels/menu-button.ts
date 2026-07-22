@@ -11,12 +11,14 @@ import { mkCall, run } from './call-slot';
     <div class="card">
       <h2>Chat menu button</h2>
       <p class="hint">
-        The button next to the input field in private chats. Leave chat_id blank
-        for the bot-wide <b>default</b>; set a chat_id to override one chat (e.g.
-        an onboarding URL before a user links their account).
+        The button next to the input field in private chats. Leave chat_id blank for the bot-wide
+        <b>default</b>; set a chat_id to override one chat (e.g. an onboarding URL before a user
+        links their account).
       </p>
 
-      <label class="first">chat_id <span class="sub">(blank = default for all private chats)</span></label>
+      <label class="first"
+        >chat_id <span class="sub">(blank = default for all private chats)</span></label
+      >
       <input [(ngModel)]="chatId" placeholder="(blank) or 123456789" class="mono" />
 
       <label>Button type</label>
@@ -30,7 +32,11 @@ import { mkCall, run } from './call-slot';
         <label>Button text</label>
         <input [(ngModel)]="text" placeholder="Mở Zira" maxlength="64" />
         <label>Web App URL <span class="sub">(https:// or a t.me Mini App link)</span></label>
-        <input [(ngModel)]="url" placeholder="https://zira.top/app/ or https://t.me/ziragram_bot/ziradev" class="mono" />
+        <input
+          [(ngModel)]="url"
+          placeholder="https://zira.top/app/ or https://t.me/ziragram_bot/ziradev"
+          class="mono"
+        />
       }
 
       <div class="row" style="margin-top:12px">
@@ -55,9 +61,7 @@ export class MenuButtonPanel {
   }
 
   async get() {
-    await run(this.slot, () =>
-      this.api.call('getChatMenuButton', this.chatParam()),
-    );
+    await run(this.slot, () => this.api.call('getChatMenuButton', this.chatParam()));
   }
 
   async set() {
