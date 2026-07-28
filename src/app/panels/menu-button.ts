@@ -34,7 +34,7 @@ import { mkCall, run } from './call-slot';
         <label>Web App URL <span class="sub">(https:// or a t.me Mini App link)</span></label>
         <input
           [(ngModel)]="url"
-          placeholder="https://zira.top/app/ or https://t.me/ziragram_bot/ziradev"
+          placeholder="https://zira.top/app/ or https://t.me/ZiraSupportBot/zira"
           class="mono"
         />
       }
