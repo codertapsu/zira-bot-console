@@ -134,7 +134,7 @@ lines up.
 - The landing owns the project's default site. This console deploys to the **additional** hosting site `zira-7439c-3425d` through the `console` deploy target: `firebase deploy --only hosting:console`. Live at `https://zira-7439c-3425d.web.app`.
 - `firebase.json` rewrites `**` → `/index.html` (SPA) and sets the security headers.
 - **The CSP is the app's real security boundary**: `connect-src https://api.telegram.org` and `script-src 'self'`. Any new network origin, CDN script, font host, or SDK will be silently blocked at runtime until `firebase.json` is updated — and widening it needs a deliberate decision, not a drive-by edit.
-- CI (`.github/workflows/console-ci.yml`): on push to `main` and on every PR — Node 24 (Angular CLI 22 needs `>=22.22.3` or `>=24.15.0`), `npm ci`, `npm run build`. There is no lint or test step because neither exists yet. Deployment is manual; CI does not deploy.
+- CI (`.github/workflows/console-ci.yml`): on push to `main` and on every PR — Node 24 (Angular CLI 22 needs `>=22.22.3` or `>=24.15.0`), `npm install` (NOT `npm ci` — see the note in the workflow), `npm run build`. There is no lint or test step because neither exists yet. Deployment is manual; CI does not deploy.
 - Dependabot runs weekly for npm and github-actions (`.github/dependabot.yml`).
 
 ## Verification
