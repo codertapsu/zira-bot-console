@@ -3,6 +3,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    /* A bot token is full control of the bot, and this console fires
+       setWebhook / deleteWebhook / leaveChat at the live production bot. Its
+       params are Record<string, unknown>, so without strictNullChecks the
+       compiler could not see a missing value reaching Telegram. Measured at
+       zero new errors when enabled. */
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
