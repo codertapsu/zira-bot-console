@@ -64,12 +64,19 @@ const KB_EXAMPLE = `{
       <input type="file" accept="image/*" (change)="pickPhoto($event)" />
 
       <label>Inline keyboard <span class="sub">(optional reply_markup JSON)</span></label>
-      <textarea rows="7" [(ngModel)]="kb" class="mono" spellcheck="false"></textarea>
+      <textarea
+        rows="7"
+        [(ngModel)]="kb"
+        class="mono"
+        spellcheck="false"
+        [attr.placeholder]="kbExample"
+      ></textarea>
 
       <div class="row" style="margin-top:12px">
         <button class="primary" (click)="send()" [disabled]="slot.loading() || !chatId().trim()">
           {{ photoFile() ? 'Send photo' : 'Send message' }}
         </button>
+        <button class="ghost" (click)="kb.set(kbExample)">Load example</button>
         <button class="ghost" (click)="kb.set('')">Clear keyboard</button>
       </div>
       @if (parseError()) {
@@ -85,7 +92,11 @@ export class ComposePanel {
   readonly text = signal('');
   readonly silent = signal(false);
   readonly preview = signal(false);
-  readonly kb = signal(KB_EXAMPLE);
+  // Empty by default. It used to ship pre-filled, so the default behaviour of
+  // "Send message" was to attach two unrelated marketing buttons — a one-line
+  // diagnostic sent to a customer's group arrived with them.
+  readonly kb = signal('');
+  readonly kbExample = KB_EXAMPLE;
   readonly photoFile = signal<File | null>(null);
   readonly parseError = signal('');
   readonly slot = mkCall();

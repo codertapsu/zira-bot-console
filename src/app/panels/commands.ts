@@ -4,11 +4,10 @@ import { TelegramApiService } from '../telegram-api.service';
 import { ResultView } from '../result-view';
 import { mkCall, run } from './call-slot';
 
-const EXAMPLE = `[
-  { "command": "today", "description": "Nhiệm vụ hôm nay" },
-  { "command": "new", "description": "Tạo nhiệm vụ nhanh" },
-  { "command": "app", "description": "Mở Zira Mini App" }
-]`;
+// Shown as a placeholder, never as the field's value: the box used to ship
+// pre-filled, so pressing "Set commands" before "Get" replaced the live menu
+// with these three examples.
+const EXAMPLE = `[{ "command": "today", "description": "Nhiệm vụ hôm nay" }]`;
 
 @Component({
   selector: 'panel-commands',
@@ -51,14 +50,37 @@ const EXAMPLE = `[
       }
 
       <label>Commands (JSON array of {{ '{command, description}' }})</label>
-      <textarea rows="9" [(ngModel)]="json" class="mono" spellcheck="false"></textarea>
+      <textarea
+        rows="9"
+        [(ngModel)]="json"
+        class="mono"
+        spellcheck="false"
+        [attr.placeholder]="example"
+      ></textarea>
 
       <div class="row" style="margin-top:10px">
         <button (click)="get()" [disabled]="slot.loading()">Get</button>
-        <button class="primary" (click)="set()" [disabled]="slot.loading()">Set commands</button>
-        <button class="danger" (click)="del()" [disabled]="slot.loading()">
-          Delete (this scope)
-        </button>
+      </div>
+
+      <div class="card dz" style="margin-top:12px">
+        <h3>Danger zone</h3>
+        <p class="hint">
+          Both of these replace the LIVE bot's slash menu for the selected scope, which defaults to
+          every private chat. The server re-registers its webhook at boot but not its command menu,
+          so a restart will not undo this — recovery means rebuilding the list by hand.
+        </p>
+        <label>
+          <input type="checkbox" style="width:auto;margin-right:7px" [(ngModel)]="unlock" />
+          I understand this affects the production bot — enable
+        </label>
+        <div class="row" style="margin-top:10px">
+          <button class="danger" (click)="set()" [disabled]="!unlock() || slot.loading()">
+            Set commands
+          </button>
+          <button class="danger" (click)="del()" [disabled]="!unlock() || slot.loading()">
+            Delete (this scope)
+          </button>
+        </div>
       </div>
       @if (parseError()) {
         <div class="warnbox" style="margin-top:10px">Invalid JSON: {{ parseError() }}</div>
@@ -73,8 +95,10 @@ export class CommandsPanel {
   readonly lang = signal('');
   readonly chatId = signal('');
   readonly userId = signal('');
-  readonly json = signal(EXAMPLE);
+  readonly json = signal('');
+  readonly unlock = signal(false);
   readonly parseError = signal('');
+  readonly example = EXAMPLE;
   readonly slot = mkCall();
 
   readonly needsChat = computed(() =>
@@ -123,6 +147,8 @@ export class CommandsPanel {
       this.parseError.set((e as Error).message);
       return;
     }
+    // Reset the gate after the call, matching the webhook/leaveChat panels: the
+    // checkbox is a per-action confirmation, not a session-wide mode.
     await run(this.slot, () =>
       this.api.call('setMyCommands', {
         commands,
@@ -130,6 +156,7 @@ export class CommandsPanel {
         ...this.langParam(),
       }),
     );
+    this.unlock.set(false);
   }
 
   async del() {
@@ -139,5 +166,6 @@ export class CommandsPanel {
         ...this.langParam(),
       }),
     );
+    this.unlock.set(false);
   }
 }

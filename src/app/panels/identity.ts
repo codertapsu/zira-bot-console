@@ -84,7 +84,15 @@ import { mkCall, run } from './call-slot';
         >
           Upload photo
         </button>
-        <button class="danger" (click)="removePhoto()" [disabled]="photoSlot.loading()">
+        <label style="margin-left:10px">
+          <input type="checkbox" style="width:auto;margin-right:7px" [(ngModel)]="unlockPhoto" />
+          enable removal
+        </label>
+        <button
+          class="danger"
+          (click)="removePhoto()"
+          [disabled]="!unlockPhoto() || photoSlot.loading()"
+        >
           Remove photo
         </button>
       </div>
@@ -105,6 +113,7 @@ export class IdentityPanel {
   readonly descSlot = mkCall();
   readonly shortSlot = mkCall();
   readonly photoSlot = mkCall();
+  readonly unlockPhoto = signal(false);
 
   private langParam(): Record<string, unknown> {
     return this.lang() ? { language_code: this.lang() } : {};
@@ -173,6 +182,10 @@ export class IdentityPanel {
     await run(this.photoSlot, () => this.api.call('setMyProfilePhoto', undefined, form));
   }
   async removePhoto() {
+    // Strips the live bot's avatar for every user who sees it in a chat list,
+    // and the console keeps no copy to restore from — so it gets the same
+    // per-action gate as the webhook controls.
     await run(this.photoSlot, () => this.api.call('removeMyProfilePhoto'));
+    this.unlockPhoto.set(false);
   }
 }

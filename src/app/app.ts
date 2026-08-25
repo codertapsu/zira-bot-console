@@ -141,7 +141,11 @@ interface TabDef {
                   <b>Unknown bot</b><span>tap ✕ to reconnect</span>
                 }
               </div>
-              <button class="ghost x sm" (click)="clear()" title="Disconnect / change token">
+              <button
+                class="ghost x sm"
+                (click)="clear()"
+                [title]="'Connected as ' + api.masked() + ' — disconnect / change token'"
+              >
                 ✕
               </button>
             </div>
