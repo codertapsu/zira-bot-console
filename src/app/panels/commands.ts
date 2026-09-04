@@ -63,7 +63,7 @@ const EXAMPLE = `[{ "command": "today", "description": "Nhiệm vụ hôm nay" }
       </div>
 
       <div class="card dz" style="margin-top:12px">
-        <h3>Danger zone</h3>
+        <h2>Danger zone</h2>
         <p class="hint">
           Both of these replace the LIVE bot's slash menu for the selected scope, which defaults to
           every private chat. The server re-registers its webhook at boot but not its command menu,

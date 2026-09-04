@@ -84,17 +84,27 @@ import { mkCall, run } from './call-slot';
         >
           Upload photo
         </button>
-        <label style="margin-left:10px">
+      </div>
+
+      <div class="card dz">
+        <h2>Danger zone</h2>
+        <p class="hint">
+          Removing the photo strips the avatar every Telegram user sees in chat lists and group
+          member lists. This console keeps no copy to restore from.
+        </p>
+        <label>
           <input type="checkbox" style="width:auto;margin-right:7px" [(ngModel)]="unlockPhoto" />
-          enable removal
+          I understand this affects the production bot — enable
         </label>
-        <button
-          class="danger"
-          (click)="removePhoto()"
-          [disabled]="!unlockPhoto() || photoSlot.loading()"
-        >
-          Remove photo
-        </button>
+        <div class="row" style="margin-top:10px">
+          <button
+            class="danger"
+            (click)="removePhoto()"
+            [disabled]="!unlockPhoto() || photoSlot.loading()"
+          >
+            Remove photo
+          </button>
+        </div>
       </div>
       <result-view [res]="photoSlot.res()" [loading]="photoSlot.loading()" />
     </div>
